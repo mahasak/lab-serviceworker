@@ -1,13 +1,11 @@
-const expectedCaches = ['static-v2'];
+const expectedCaches = ['static-v3'];
 
 self.addEventListener('install', event => {
-  console.log('V2 installing…');
-
+  console.log('V3 installing…');
   self.skipWaiting();
-
   // cache a horse SVG into a new cache, static-v2
   event.waitUntil(
-    caches.open('static-v2').then(cache => cache.add('/horse.svg'))
+    caches.open('static-v3').then(cache => cache.add('/cat.svg'))
   );
 });
 
@@ -22,7 +20,7 @@ self.addEventListener('activate', event => {
         }
       })
     )).then(() => {
-      console.log('V2 now ready to handle fetches!');
+      console.log('V3 now ready to handle fetches!');
     })
   );
 });
@@ -33,6 +31,6 @@ self.addEventListener('fetch', event => {
   // serve the horse SVG from the cache if the request is
   // same-origin and the path is '/dog.svg'
   if (url.origin == location.origin && url.pathname == '/dog.svg') {
-    event.respondWith(caches.match('/horse.svg'));
+    event.respondWith(caches.match('/cat.svg'));
   }
 });
